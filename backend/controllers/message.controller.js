@@ -1,6 +1,6 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
-import { getReceiverSocketId } from "../socket/socket.js";
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const sendMessage= async(req,res)=>{
     try {
@@ -8,9 +8,9 @@ export const sendMessage= async(req,res)=>{
         const {id: receiverId} =req.params;
         const senderId=req.user._id;
 
-        if (!message) {
-            return res.status(400).json({ error: "Message content is required" });
-        }
+        // if (!message) {
+        //     return res.status(400).json({ error: "Message content is required" });
+        // }
 
         let conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId]},
@@ -61,7 +61,7 @@ export const getMessages= async(req,res)=>{
 
         const conversation=await Conversation.findOne({
             participants:{$all: [senderId, userToChatId]},
-        }).populate("messages");
+        }).populate("messages");  // NOT REFERENCE BUT ACTUAL MESSAGES
 
         if (!conversation) {
             return res.status(200).json([]);

@@ -5,9 +5,9 @@ export const getUsersForSidebar= async(req,res)=>{
 
         const loggedInUserId=req.user._id;
 
-        if (!loggedInUserId) {
-            return res.status(401).json({ error: "Unauthorized access" });
-        }
+        // if (!loggedInUserId) {
+        //     return res.status(401).json({ error: "Unauthorized access" });
+        // }
 
         const filterUsers=await User.find({ _id: {$ne: loggedInUserId}}).select("-password");
 

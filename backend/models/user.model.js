@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 const userSchema= new mongoose.Schema({
     fullName:{
         type:String,
-        required:true
+        required:true,
     },
     username:{
         type:String,
         required:true,
-        unique:true
+        unique:true,
     },
     password:{
         type:String,
         required:true,
-        minlength:6
+        minlength:6,
     },
     gender:{
         type:String,
@@ -22,7 +22,7 @@ const userSchema= new mongoose.Schema({
     },
     profilePic:{
         type:String,
-        default:""
+        default:"",
     },
     // createdAt, updatedAt  => Member since <createdAt>
 },{timestamps:true});

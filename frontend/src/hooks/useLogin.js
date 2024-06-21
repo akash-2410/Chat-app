@@ -18,13 +18,17 @@ const useLogin = () => {
             });
 
             const data = await res.json();
-            if (!res.ok) {
-                throw new Error(data.error || "Login failed");
-            }
+            // if (!res.ok) {
+            //     throw new Error(data.error || "Login failed");
+            // }
+
+            if (data.error) {
+				throw new Error(data.error);
+			}
 
             localStorage.setItem("chat-user", JSON.stringify(data));
             setAuthUser(data);
-            toast.success("Logged in successfully!");
+            // toast.success("Logged in successfully!");
 
         } catch (error) {
             toast.error(error.message);
@@ -39,8 +43,9 @@ const useLogin = () => {
 export default useLogin;
 
 function handleInputErrors(username, password){
-    if(!username || !password || username.trim() === '' || password.trim() === '') {
-        toast.error("Please fill in all fields")
+    // if(!username || !password || username.trim() === '' || password.trim() === '') {
+        if (!username || !password) {
+        toast.error("Please fill in all fields");
         return false;
     }
 
